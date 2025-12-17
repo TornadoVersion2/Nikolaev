@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-kr+l&7a#jkzg!frls0+98(rlqk%#)@h7#_t-te8)!k0jmr$@8$
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tornado795.pythonanywhere.com']
 
 
 # Application definition
