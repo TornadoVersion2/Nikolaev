@@ -1,0 +1,125 @@
+{% extends 'helloWorld/base.html' %}
+
+{% block title %}Продукты{% endblock %}
+
+{% block extra_css %}
+<style>
+    .products-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 30px 0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        background-color: white;
+    }
+    
+    .products-table thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    .products-table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        border-bottom: 2px solid #764ba2;
+    }
+    
+    .products-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .products-table tbody tr:hover {
+        background-color: #f8f9fa;
+        transition: background-color 0.3s;
+    }
+    
+    .products-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: #667eea;
+        font-size: 1.1em;
+    }
+    
+    .status {
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 0.9em;
+        font-weight: 500;
+    }
+    
+    .status-available {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    
+    .status-limited {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    
+    .status-new {
+        background-color: #cce5ff;
+        color: #004085;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Наши продукты</h1>
+
+<div style="margin-bottom: 30px;">
+    <p>
+        Мы предлагаем широкий ассортимент качественных продуктов и решений для различных 
+        потребностей бизнеса. Каждый продукт разработан с учетом современных требований 
+        и стандартов качества.
+    </p>
+</div>
+
+<table class="products-table">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Название продукта</th>
+            <th>Описание</th>
+            <th>Категория</th>
+            <th>Цена</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td><strong>{{ product.name }}</strong></td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.category }}</td>
+            <td class="price">{{ product.get_formatted_price }}</td>
+            <td><span class="status {{ product.get_status_class }}">{{ product.get_status_display }}</span></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" style="text-align: center; padding: 30px; color: #666;">
+                Продукты пока не добавлены в базу данных.
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-top: 30px;">
+    <h2>Примечания</h2>
+    <ul style="margin-top: 10px; padding-left: 20px;">
+        <li>Все цены указаны в российских рублях</li>
+        <li>Цены могут варьироваться в зависимости от сложности проекта</li>
+        <li>Возможна рассрочка платежа для крупных проектов</li>
+        <li>Для получения индивидуального предложения <a href="{% url 'contact' %}" style="color: #667eea; font-weight: bold;">свяжитесь с нами</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+
+

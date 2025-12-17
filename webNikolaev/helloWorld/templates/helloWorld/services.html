@@ -1,0 +1,85 @@
+{% extends 'helloWorld/base.html' %}
+
+{% block title %}Услуги{% endblock %}
+
+{% block content %}
+<h1>Наши услуги</h1>
+
+<div style="margin-bottom: 30px;">
+    <p>
+        Мы предлагаем широкий спектр услуг, которые помогут вашему бизнесу расти и развиваться. 
+        Наша команда экспертов готова помочь вам в решении любых задач.
+    </p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px;">
+    <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s;">
+        <h2 style="color: #667eea; margin-bottom: 15px;">Веб-разработка</h2>
+        <p>
+            Создание современных веб-приложений и сайтов с использованием передовых технологий. 
+            От простых лендингов до сложных корпоративных порталов.
+        </p>
+        <ul style="margin-top: 15px; padding-left: 20px;">
+            <li>Frontend разработка</li>
+            <li>Backend разработка</li>
+            <li>Мобильная адаптация</li>
+            <li>SEO оптимизация</li>
+        </ul>
+    </div>
+
+    <div style="background: white; border: 2px solid #764ba2; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="color: #764ba2; margin-bottom: 15px;">Консалтинг</h2>
+        <p>
+            Профессиональные консультации по вопросам бизнес-процессов, технологий и стратегии развития. 
+            Помогаем принимать правильные решения.
+        </p>
+        <ul style="margin-top: 15px; padding-left: 20px;">
+            <li>Бизнес-анализ</li>
+            <li>Техническое консультирование</li>
+            <li>Стратегическое планирование</li>
+            <li>Аудит процессов</li>
+        </ul>
+    </div>
+
+    <div style="background: white; border: 2px solid #667eea; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="color: #667eea; margin-bottom: 15px;">Поддержка</h2>
+        <p>
+            Круглосуточная техническая поддержка и обслуживание ваших систем. 
+            Гарантируем быструю реакцию и решение проблем.
+        </p>
+        <ul style="margin-top: 15px; padding-left: 20px;">
+            <li>24/7 мониторинг</li>
+            <li>Техническая поддержка</li>
+            <li>Обновление систем</li>
+            <li>Резервное копирование</li>
+        </ul>
+    </div>
+
+    <div style="background: white; border: 2px solid #764ba2; border-radius: 10px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h2 style="color: #764ba2; margin-bottom: 15px;">Дизайн</h2>
+        <p>
+            Создание привлекательного и функционального дизайна для ваших проектов. 
+            От логотипов до полного брендинга.
+        </p>
+        <ul style="margin-top: 15px; padding-left: 20px;">
+            <li>UI/UX дизайн</li>
+            <li>Графический дизайн</li>
+            <li>Брендинг</li>
+            <li>Иллюстрации</li>
+        </ul>
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-top: 40px; text-align: center;">
+    <h2 style="color: white; border-bottom: 2px solid white; padding-bottom: 15px; margin-bottom: 20px;">Готовы начать?</h2>
+    <p style="font-size: 1.1em; margin-bottom: 20px;">
+        Свяжитесь с нами сегодня и узнайте, как мы можем помочь вашему бизнесу!
+    </p>
+    <a href="{% url 'contact' %}" style="display: inline-block; background-color: white; color: #667eea; padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: bold; margin-top: 10px;">
+        Связаться с нами
+    </a>
+</div>
+{% endblock %}
+
+
+

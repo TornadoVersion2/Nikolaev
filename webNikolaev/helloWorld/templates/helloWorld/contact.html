@@ -1,0 +1,84 @@
+{% extends 'helloWorld/base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<h1>Свяжитесь с нами</h1>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 10px; border-left: 4px solid #667eea;">
+        <h2 style="color: #667eea; margin-bottom: 15px;">📧 Email</h2>
+        <p><strong>Общие вопросы:</strong><br>
+        <a href="mailto:info@company.com" style="color: #667eea;">info@company.com</a></p>
+        <p><strong>Техническая поддержка:</strong><br>
+        <a href="mailto:support@company.com" style="color: #667eea;">support@company.com</a></p>
+        <p><strong>Сотрудничество:</strong><br>
+        <a href="mailto:partners@company.com" style="color: #667eea;">partners@company.com</a></p>
+    </div>
+
+    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 10px; border-left: 4px solid #764ba2;">
+        <h2 style="color: #764ba2; margin-bottom: 15px;">📞 Телефон</h2>
+        <p><strong>Горячая линия:</strong><br>
+        <a href="tel:+78001234567" style="color: #764ba2; font-size: 1.1em;">8 (800) 123-45-67</a></p>
+        <p><strong>Мобильный:</strong><br>
+        <a href="tel:+79991234567" style="color: #764ba2; font-size: 1.1em;">+7 (999) 123-45-67</a></p>
+        <p style="margin-top: 15px;"><em>Работаем с 9:00 до 18:00 (МСК)</em></p>
+    </div>
+
+    <div style="background-color: #f8f9fa; padding: 25px; border-radius: 10px; border-left: 4px solid #667eea;">
+        <h2 style="color: #667eea; margin-bottom: 15px;">📍 Адрес</h2>
+        <p><strong>Офис:</strong><br>
+        123456, г. Москва,<br>
+        ул. Примерная, д. 10, офис 205</p>
+        <p style="margin-top: 15px;"><strong>Время работы офиса:</strong><br>
+        Пн-Пт: 9:00 - 18:00<br>
+        Сб-Вс: Выходной</p>
+    </div>
+</div>
+
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-top: 40px;">
+    <h2 style="color: white; border-bottom: 2px solid white; padding-bottom: 15px; margin-bottom: 20px;">Мы в социальных сетях</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px;">
+        <div style="background-color: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; flex: 1; min-width: 150px;">
+            <strong>VKontakte</strong><br>
+            <a href="#" style="color: white;">vk.com/company</a>
+        </div>
+        <div style="background-color: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; flex: 1; min-width: 150px;">
+            <strong>Telegram</strong><br>
+            <a href="#" style="color: white;">@company</a>
+        </div>
+        <div style="background-color: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px; flex: 1; min-width: 150px;">
+            <strong>WhatsApp</strong><br>
+            <a href="#" style="color: white;">+7 (999) 123-45-67</a>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 40px; padding: 25px; background-color: #e9ecef; border-radius: 10px;">
+    <h2>Форма обратной связи</h2>
+    <p style="margin-top: 15px;">
+        Заполните форму ниже, и мы свяжемся с вами в ближайшее время. Обычно мы отвечаем 
+        в течение 24 часов в рабочие дни.
+    </p>
+    <form style="margin-top: 20px;">
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Ваше имя:</label>
+            <input type="text" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em;" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email:</label>
+            <input type="email" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em;" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; margin-bottom: 5px; font-weight: bold;">Сообщение:</label>
+            <textarea rows="5" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1em; font-family: inherit;" required></textarea>
+        </div>
+        <button type="submit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px 30px; border: none; border-radius: 5px; font-size: 1em; font-weight: bold; cursor: pointer;">
+            Отправить сообщение
+        </button>
+    </form>
+</div>
+{% endblock %}
+
+
+
