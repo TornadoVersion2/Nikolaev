@@ -65,11 +65,185 @@
         background-color: #cce5ff;
         color: #004085;
     }
+
+    .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .primary-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 0.95rem;
+        font-weight: 500;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        transition: opacity 0.2s, transform 0.1s, box-shadow 0.1s;
+    }
+
+    .primary-button:hover {
+        opacity: 0.9;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .primary-button:active {
+        transform: translateY(1px);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.4);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        padding: 20px;
+    }
+
+    .modal-overlay.modal-overlay--visible {
+        display: flex;
+    }
+
+    .modal {
+        background-color: #ffffff;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 600px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+    }
+
+    .modal-header {
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .modal-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .modal-close {
+        background: transparent;
+        border: none;
+        color: #ffffff;
+        font-size: 1.4rem;
+        cursor: pointer;
+        line-height: 1;
+        padding: 0;
+        margin-left: 10px;
+    }
+
+    .modal-body {
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px 20px;
+    }
+
+    .modal-body-wide {
+        grid-column: 1 / -1;
+    }
+
+    .modal-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .modal-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: #444444;
+    }
+
+    .modal-input,
+    .modal-textarea,
+    .modal-select {
+        border-radius: 6px;
+        border: 1px solid #cccccc;
+        padding: 8px 10px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .modal-input:focus,
+    .modal-textarea:focus,
+    .modal-select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+    }
+
+    .modal-textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+
+    .modal-footer {
+        padding: 15px 20px;
+        background-color: #f8f9fa;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    .secondary-button {
+        background-color: #e0e0e0;
+        color: #333333;
+        border: none;
+        border-radius: 6px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: background-color 0.15s;
+    }
+
+    .secondary-button:hover {
+        background-color: #d0d0d0;
+    }
+
+    .field-error {
+        color: #b00020;
+        font-size: 0.8rem;
+    }
+
+    .modal-error {
+        grid-column: 1 / -1;
+        color: #b00020;
+        background-color: #ffebee;
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 640px) {
+        .modal-body {
+            grid-template-columns: 1fr;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<h1>Наши продукты</h1>
+<div class="products-header">
+    <h1>Наши продукты</h1>
+    <button type="button" id="openAddProductModal" class="primary-button">Добавить продукт</button>
+</div>
 
 <div style="margin-bottom: 30px;">
     <p>
@@ -77,6 +251,105 @@
         потребностей бизнеса. Каждый продукт разработан с учетом современных требований 
         и стандартов качества.
     </p>
+</div>
+
+<div id="addProductModal" class="modal-overlay">
+    <div class="modal">
+        <div class="modal-header">
+            <div class="modal-title">Добавление продукта</div>
+            <button type="button" id="closeAddProductModal" class="modal-close" aria-label="Закрыть">×</button>
+        </div>
+        <form method="post" action="{% url 'products' %}">
+            {% csrf_token %}
+            <div class="modal-body">
+                {% if form_errors %}
+                <div class="modal-error">
+                    Проверьте, пожалуйста, правильность заполнения формы.
+                </div>
+                {% endif %}
+
+                <div class="modal-field">
+                    <label for="productName" class="modal-label">Название</label>
+                    <input
+                        id="productName"
+                        name="name"
+                        type="text"
+                        class="modal-input"
+                        value="{{ form_data.name }}"
+                        required
+                    >
+                    {% if form_errors.name %}
+                    <div class="field-error">{{ form_errors.name }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="modal-field">
+                    <label for="productCategory" class="modal-label">Категория</label>
+                    <input
+                        id="productCategory"
+                        name="category"
+                        type="text"
+                        class="modal-input"
+                        value="{{ form_data.category }}"
+                        required
+                    >
+                    {% if form_errors.category %}
+                    <div class="field-error">{{ form_errors.category }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="modal-field modal-body-wide">
+                    <label for="productDescription" class="modal-label">Описание</label>
+                    <textarea
+                        id="productDescription"
+                        name="description"
+                        class="modal-textarea"
+                        required
+                    >{{ form_data.description }}</textarea>
+                    {% if form_errors.description %}
+                    <div class="field-error">{{ form_errors.description }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="modal-field">
+                    <label for="productPrice" class="modal-label">Цена, ₽</label>
+                    <input
+                        id="productPrice"
+                        name="price"
+                        type="text"
+                        class="modal-input"
+                        value="{{ form_data.price }}"
+                        required
+                    >
+                    {% if form_errors.price %}
+                    <div class="field-error">{{ form_errors.price }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="modal-field">
+                    <label for="productStatus" class="modal-label">Статус</label>
+                    <select
+                        id="productStatus"
+                        name="status"
+                        class="modal-select"
+                    >
+                        {% for value, label in status_choices %}
+                        <option value="{{ value }}"{% if form_data.status == value %} selected{% endif %}>
+                            {{ label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    {% if form_errors.status %}
+                    <div class="field-error">{{ form_errors.status }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelAddProductModal" class="secondary-button">Отмена</button>
+                <button type="submit" class="primary-button">Сохранить</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <table class="products-table">
@@ -121,5 +394,64 @@
 </div>
 {% endblock %}
 
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const openButton = document.getElementById('openAddProductModal');
+    const modal = document.getElementById('addProductModal');
+    const closeButton = document.getElementById('closeAddProductModal');
+    const cancelButton = document.getElementById('cancelAddProductModal');
+
+    function openModal() {
+        if (modal) {
+            modal.classList.add('modal-overlay--visible');
+        }
+    }
+
+    function closeModal() {
+        if (modal) {
+            modal.classList.remove('modal-overlay--visible');
+        }
+    }
+
+    if (openButton) {
+        openButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            openModal();
+        });
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            closeModal();
+        });
+    }
+
+    if (cancelButton) {
+        cancelButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            closeModal();
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+
+});
+</script>
+{% endblock %}
 
 
